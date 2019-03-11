@@ -7,7 +7,6 @@ export default class ImageView extends React.Component {
   //   componentWillMount() {}
 
   onImageClick = () => {
-    console.log("2. isOpen = ", this.state.isOpen);
     this.setState({ isOpen: true });
     document.querySelector("#root").style.filter = "blur(5px)";
   };

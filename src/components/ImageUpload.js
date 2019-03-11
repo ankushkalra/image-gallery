@@ -8,18 +8,47 @@ class ImageUpload extends React.Component {
     const { currentImage } = this.state;
     if (currentImage !== "") {
       onSubmit && onSubmit(currentImage);
+      this.setState({ currentImage: "" });
     }
   };
 
+  validate = fileName => {
+    var validExtensions = [".jpg", ".jpeg", ".png"];
+    if (fileName.length > 0) {
+
+      var blnValid = false;
+      for (var j = 0; j < validExtensions.length; j++) {
+        var curExtension = validExtensions[j];
+        if (
+          fileName.substr(fileName.length - curExtension.length, curExtension.length).toLowerCase() ==
+          curExtension.toLowerCase()
+        ) {
+          blnValid = true;
+          break;
+        }
+      }
+
+      if (!blnValid) {
+        alert("Sorry, " + fileName + " is invalid, allowed extensions are: " + validExtensions.join(", "));
+        return false;
+      } else {
+        return true;
+      }
+    }
+  };
   handleInputChange = e => {
     let reader = new FileReader();
     let file = e.target.files[0];
-    reader.onloadend = () => {
-      console.log("4. reader.result = ", reader.result);
-      this.setState({ currentImage: reader.result });
-    };
-    console.log("5. file = ", file);
-    file && reader.readAsDataURL(file);
+    if (file) {
+      if (this.validate(file.name)) {
+        reader.onloadend = () => {
+          this.setState({ currentImage: reader.result });
+        };
+        file && reader.readAsDataURL(file);
+      } else {
+        e.target.value = null;
+      }
+    }
   };
 
   render() {

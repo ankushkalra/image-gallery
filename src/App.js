@@ -11,7 +11,6 @@ class App extends Component {
 
   addImage = image => {
     const ext = image.slice(0, 22);
-    console.log("3. ext = ", ext);
     let charactersToSlice = 0;
     if (ext.indexOf("jpeg") > 0) {
       charactersToSlice = 23;
