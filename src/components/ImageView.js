@@ -4,8 +4,6 @@ import ReactDOM from "react-dom";
 export default class ImageView extends React.Component {
   state = { isOpen: false };
 
-  //   componentWillMount() {}
-
   onImageClick = () => {
     this.setState({ isOpen: true });
     document.querySelector("#root").style.filter = "blur(5px)";
@@ -72,4 +70,3 @@ const modalCSS = {
   alignItems: "center",
   justifyContent: "center"
 };
-// WebkitFilter: "blur(8px)",
