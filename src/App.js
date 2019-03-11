@@ -10,7 +10,14 @@ class App extends Component {
   state = { images };
 
   addImage = image => {
-    image = image.slice(23);
+    const ext = image.slice(0, 22);
+    console.log("3. ext = ", ext);
+    let charactersToSlice = 0;
+    if (ext.indexOf("jpeg") > 0) {
+      charactersToSlice = 23;
+    } else charactersToSlice = 22;
+
+    image = image.slice(charactersToSlice);
     this.setState(({ images }) => ({ images: [...images, image] }));
   };
 
@@ -20,7 +27,7 @@ class App extends Component {
     return (
       <div className="container">
         <div className="row">
-          <ImageUpload />
+          <ImageUpload onSubmit={this.addImage} />
           <WebcamCapture onCapture={this.addImage} />
         </div>
         <div className="row">
